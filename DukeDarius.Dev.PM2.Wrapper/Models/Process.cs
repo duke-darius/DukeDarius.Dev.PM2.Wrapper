@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DukeDarius.Dev.PM2.Wrapper.Models
 {
-    public class PM2Process
+    public class Process
     {
         [JsonProperty("pid")]
         public long ProcessId { get; set; }
