@@ -14,4 +14,8 @@
     <PackageReference Include="coverlet.collector" Version="3.1.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\DukeDarius.Dev.PM2.Wrapper\DukeDarius.Dev.PM2.Wrapper.csproj" />
+  </ItemGroup>
+
 </Project>

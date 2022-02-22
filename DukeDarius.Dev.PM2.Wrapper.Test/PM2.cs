@@ -1,5 +1,6 @@
 using NUnit.Framework;
 
+
 namespace DukeDarius.Dev.PM2.Wrapper.Test
 {
     public class Tests
@@ -11,9 +12,9 @@ namespace DukeDarius.Dev.PM2.Wrapper.Test
         }
 
         [Test]
-        public void Test1()
+        public async void Test1()
         {
-            Assert.Pass();
+            Assert.IsTrue(true);
         }
     }
 }
