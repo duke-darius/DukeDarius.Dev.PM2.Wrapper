@@ -1,6 +1,7 @@
 using NUnit.Framework;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace DukeDarius.Dev.PM2.Wrapper.Test
 {
@@ -15,21 +16,21 @@ namespace DukeDarius.Dev.PM2.Wrapper.Test
         
 
         [Test]
-        public async void CanListProcesses()
+        public async Task CanListProcesses()
         {
             var processes = await PM2.GetMonitoredProcesses();
             Assert.IsNotNull(processes);
         }
 
         [Test]
-        public async void CanAddProcess()
+        public async Task CanAddProcess()
         {
             var newProcess = await PM2.StartProcess(new Models.ProcessStartArgs(AppContext.BaseDirectory, "app1.js"));
             Assert.IsNotNull(newProcess);
         }
 
         [Test]
-        public async void CanStopProcess()
+        public async Task CanStopProcess()
         {
             var all = await PM2.GetMonitoredProcesses();
             Assert.IsNotNull(all);
@@ -41,7 +42,7 @@ namespace DukeDarius.Dev.PM2.Wrapper.Test
         }
 
         [Test]
-        public async void CanStartProcess()
+        public async Task CanStartProcess()
         {
             var all = await PM2.GetMonitoredProcesses();
             Assert.IsNotNull(all);
