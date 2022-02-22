@@ -16,6 +16,8 @@ jobs:
       uses: actions/setup-node@v2.5.1
     - name: Install PM2
       run: npm i -g pm2
+    - name: Init PM2
+      run: pm2 status
     - uses: actions/checkout@v2
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
