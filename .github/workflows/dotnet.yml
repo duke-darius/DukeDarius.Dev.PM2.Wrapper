@@ -25,9 +25,7 @@ jobs:
     - name: Test
       run: dotnet test -c Release --no-build --no-restore --collect:"XPlat Code Coverage"
     - name: Print
-      run: mv **/coverage.cobertura.xml ./coverage.cobertura.xml
-    - name: pwd
-      run: ls -ld -- **/coverage.cobertura.xml
+      run: mv **/*/*/coverage.cobertura.xml ./coverage.cobertura.xml
     - name: Coverage
       uses: codecov/codecov-action@v2
       with:
