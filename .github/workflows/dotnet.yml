@@ -20,13 +20,20 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build -c Release --no-restore
+
     - name: Test
-      run: dotnet test --no-build --verbosity normal --collect:"XPlat Code Coverage"
-      
-    - name: Codecov
-      # You may pin to the exact commit or the version.
-      # uses: codecov/codecov-action@f32b3a3741e1053eb607407145bc9619351dc93b
-      uses: codecov/codecov-action@v2.1.0
+      run: dotnet test -c Release --no-build --no-restore --blame-hang --blame-hang-timeout 60s /property:GenerateFullPaths=true /consoleloggerparameters:NoSummary /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:ExcludeByAttribute='ExcludeFromCodeCoverage' /p:SkipAutoProps=true /p:CoverletOutput='./TestResults/'
+
+    - name: Coverage
+      uses: codecov/codecov-action@v2
       with:
-        files: ./TestResults/*/coverage.cobertura.xml
+        file: coverage.cobertura.xml
+
+    - name: Publish
+      run: dotnet publish ${{ inputs.publish-directory }} -c Release --runtime win-x64 --self-contained -o ${{env.DOTNET_ROOT}}/${{ inputs.deploy-web-app-name }}
+
+    - uses: actions/upload-artifact@v2
+      with:
+        name: ${{ inputs.deploy-web-app-name }}
+        path: ${{env.DOTNET_ROOT}}/${{ inputs.deploy-web-app-name }}
