@@ -4,7 +4,6 @@ using DukeDarius.Dev.PM2.Wrapper.Models;
 
 Console.WriteLine("Hello, World!");
 
-PM2Wrapper wrapper = new PM2Wrapper();
 
 var t = Task.Run(StartTest);
 Task.WaitAll(t);
@@ -24,13 +23,13 @@ async Task StartTest()
 
 async Task GetColdProcessList()
 {
-    var list = await wrapper.GetMonitoredProcesses();
+    var list = await PM2.GetMonitoredProcesses();
     Console.WriteLine($"Found {list.Count} PM2 Processes");
 }
 
 async Task StopStartAndRestartAllProcesses()
 {
-    var ps = await wrapper.GetMonitoredProcesses();
+    var ps = await PM2.GetMonitoredProcesses();
     foreach(var p in ps)
     {
         await p.Stop();
@@ -41,21 +40,21 @@ async Task StopStartAndRestartAllProcesses()
 
 async Task AddApp1ToPM2()
 {
-    var newProcesses = await wrapper.StartProcess(new ProcessStartArgs(AppContext.BaseDirectory + "Test Applications", "App1.js"), i => Console.WriteLine(i));
+    var newProcesses = await PM2.StartProcess(new ProcessStartArgs(AppContext.BaseDirectory + "Test Applications", "App1.js"), i => Console.WriteLine(i));
 }
 
 async Task ReadFirstProgram()
 {
-    var processes = await wrapper.GetMonitoredProcesses();
+    var processes = await PM2.GetMonitoredProcesses();
     var p = processes.First();
 
-    await wrapper.ReadProcess(p, x => Console.WriteLine("MSG: " + x), x => Console.WriteLine("ERR: " + x));
+    await PM2.ReadProcess(p, x => Console.WriteLine("MSG: " + x), x => Console.WriteLine("ERR: " + x));
 
 }
 
 async Task AttachToProcess()
 {
-    var processes = await wrapper.GetMonitoredProcesses();
+    var processes = await PM2.GetMonitoredProcesses();
     var p = processes.First();
 
     CancellationTokenSource cts = new CancellationTokenSource();

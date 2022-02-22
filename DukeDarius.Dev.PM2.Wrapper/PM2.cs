@@ -10,10 +10,10 @@ using WinProcess = System.Diagnostics.Process;
 
 namespace DukeDarius.Dev.PM2.Wrapper
 {
-    public class PM2Wrapper
+    public static class PM2
     {
 
-        public async Task<List<Process>> GetMonitoredProcesses()
+        public static async Task<List<Process>> GetMonitoredProcesses()
         {
             try
             {
@@ -36,7 +36,7 @@ namespace DukeDarius.Dev.PM2.Wrapper
         }
 
 
-        public async Task<Process> StartProcess(ProcessStartArgs args, Action<string> messageRecieved = null)
+        public static async Task<Process> StartProcess(ProcessStartArgs args, Action<string> messageRecieved = null)
         {
             try
             {
@@ -70,7 +70,7 @@ namespace DukeDarius.Dev.PM2.Wrapper
             }
         }
 
-        public async Task ReadProcess(Process process, Action<string> StandardOutputRecieved, Action<string> StandardErrorRecieved = null)
+        public static async Task ReadProcess(Process process, Action<string> StandardOutputRecieved, Action<string> StandardErrorRecieved = null)
         {
             var builder = Cli.Wrap("pm2")
                 .WithArguments($"logs {process.ProcessManagerId} --lines 0")
