@@ -31,10 +31,3 @@ jobs:
       with:
         file: coverage.cobertura.xml
 
-    - name: Publish
-      run: dotnet publish ${{ inputs.publish-directory }} -c Release --runtime win-x64 --self-contained -o ${{env.DOTNET_ROOT}}/${{ inputs.deploy-web-app-name }}
-
-    - uses: actions/upload-artifact@v2
-      with:
-        name: app
-        path: ${{env.DOTNET_ROOT}}/${{ inputs.deploy-web-app-name }}
