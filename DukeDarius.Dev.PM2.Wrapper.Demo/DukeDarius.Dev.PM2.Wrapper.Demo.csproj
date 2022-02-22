@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Edge.js" Version="8.2.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\DukeDarius.Dev.PM2.Wrapper\DukeDarius.Dev.PM2.Wrapper.csproj" />
   </ItemGroup>
 

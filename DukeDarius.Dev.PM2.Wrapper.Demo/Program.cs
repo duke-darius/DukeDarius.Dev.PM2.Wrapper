@@ -17,6 +17,9 @@ async Task StartTest()
     //await AddApp1ToPM2();
     //await ReadFirstProgram();
 
+    await AttachToProcess();
+
+
 };
 
 async Task GetColdProcessList()
@@ -50,3 +53,30 @@ async Task ReadFirstProgram()
 
 }
 
+async Task AttachToProcess()
+{
+    var processes = await wrapper.GetMonitoredProcesses();
+    var p = processes.First();
+
+    CancellationTokenSource cts = new CancellationTokenSource();
+    p.Listen(cts.Token, x=>
+    {
+        Console.WriteLine("MSG: " + x);
+    }, x=>
+    {
+        Console.WriteLine("ERR: " + x);
+        cts.Cancel();
+    });
+
+    string val;
+    while (true)
+    {
+        val = Console.ReadLine() ?? "";
+        if(val == "stop")
+        {
+            cts.Cancel();
+            //break;
+        }
+        await p.SendMessageAsync(val);
+    }
+}

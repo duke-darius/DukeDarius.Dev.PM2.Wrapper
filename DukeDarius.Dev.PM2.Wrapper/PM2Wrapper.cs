@@ -29,7 +29,7 @@ namespace DukeDarius.Dev.PM2.Wrapper
 
                 return JsonConvert.DeserializeObject<List<Process>>(res.StandardOutput) ?? throw new Exception("Deserialized object was null...");
 
-            }catch(Exception e)
+            } catch (Exception e)
             {
                 throw;
             }
@@ -46,7 +46,7 @@ namespace DukeDarius.Dev.PM2.Wrapper
                     .WithValidation(CommandResultValidation.None)
                     .ExecuteBufferedAsync();
 
-                if(res.ExitCode != 0)
+                if (res.ExitCode != 0)
                 {
                     throw new Exception(res.StandardError);
                 }
@@ -60,11 +60,11 @@ namespace DukeDarius.Dev.PM2.Wrapper
                 }
 
                 var processes = await GetMonitoredProcesses();
-                return processes.OrderBy(x=> x.ProcessManagerId).Last();
+                return processes.OrderBy(x => x.ProcessManagerId).Last();
 
 
             }
-            catch(Exception)
+            catch (Exception)
             {
                 throw;
             }
@@ -80,7 +80,7 @@ namespace DukeDarius.Dev.PM2.Wrapper
                 builder.WithStandardErrorPipe(PipeTarget.ToDelegate(StandardErrorRecieved));
 
             await builder.ExecuteAsync();
-                
+
         }
 
 

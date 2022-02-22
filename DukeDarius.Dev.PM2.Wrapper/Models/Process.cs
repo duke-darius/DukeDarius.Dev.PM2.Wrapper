@@ -22,6 +22,8 @@ namespace DukeDarius.Dev.PM2.Wrapper.Models
 
         [JsonProperty("monit")] 
         public MonitInformation MonitInformation { get; set; }
+        public Action<string> StdOut { get; internal set; }
+        public Action<string> StdErr { get; internal set; }
 
         public async Task Stop()
         {
@@ -45,6 +47,28 @@ namespace DukeDarius.Dev.PM2.Wrapper.Models
                 .WithArguments("restart " + ProcessManagerId)
                 .ExecuteBufferedAsync();
 
+        }
+
+        public void Listen(CancellationToken token, Action<string> standardOutputReceived, Action<string> standardErrorRecieved)
+        {
+            StdOut = standardOutputReceived;
+            StdErr = standardErrorRecieved;
+            Task.Run(async() =>
+            {
+                var res = await Cli.Wrap("pm2")
+                    .WithArguments($"logs {ProcessManagerId} --lines 0")
+                    .WithStandardOutputPipe(PipeTarget.ToDelegate(StdOut))
+                    .WithStandardErrorPipe(PipeTarget.ToDelegate(StdErr))
+                    .WithValidation(CommandResultValidation.None)
+                    .ExecuteAsync(token);
+            });
+        }
+
+        public async Task SendMessageAsync(string message)
+        {
+            await Cli.Wrap("pm2")
+                .WithArguments($"send {ProcessManagerId} {message}")
+                .ExecuteAsync();
         }
     }
 }
