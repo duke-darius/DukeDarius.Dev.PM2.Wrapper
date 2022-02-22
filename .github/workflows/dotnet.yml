@@ -23,7 +23,7 @@ jobs:
       run: dotnet build -c Release --no-restore
 
     - name: Test
-      run: dotnet test -c Release --no-build --no-restore --blame-hang --blame-hang-timeout 60s /property:GenerateFullPaths=true /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:ExcludeByAttribute='ExcludeFromCodeCoverage' /p:SkipAutoProps=true /p:CoverletOutput='./TestResults/'
+      run: dotnet test -c Release --no-build --no-restore --collect:"XPlat Code Coverage"
     - name: Print
       run: ls -R
     - name: pwd
@@ -31,5 +31,5 @@ jobs:
     - name: Coverage
       uses: codecov/codecov-action@v2
       with:
-        file: coverage.cobertura.xml
+        file: ./DukeDarius.Dev.PM2.Wrapper.Test/TestResults/*/coverage.cobertura.xml
 
