@@ -12,7 +12,7 @@ namespace DukeDarius.Dev.PM2.Wrapper.Test
         }
 
         [Test]
-        public async void Test1()
+        public void Test1()
         {
             Assert.IsTrue(true);
         }
