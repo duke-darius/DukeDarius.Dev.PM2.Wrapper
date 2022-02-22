@@ -23,7 +23,7 @@ jobs:
       run: dotnet build -c Release --no-restore
 
     - name: Test
-      run: dotnet test -c Release --no-build --no-restore --blame-hang --blame-hang-timeout 60s /property:GenerateFullPaths=true /consoleloggerparameters:NoSummary /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:ExcludeByAttribute='ExcludeFromCodeCoverage' /p:SkipAutoProps=true /p:CoverletOutput='./TestResults/'
+      run: dotnet test -c Release --no-build --no-restore --blame-hang --blame-hang-timeout 60s /property:GenerateFullPaths=true /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:ExcludeByAttribute='ExcludeFromCodeCoverage' /p:SkipAutoProps=true /p:CoverletOutput='./TestResults/'
 
     - name: Coverage
       uses: codecov/codecov-action@v2
@@ -35,5 +35,5 @@ jobs:
 
     - uses: actions/upload-artifact@v2
       with:
-        name: ${{ inputs.deploy-web-app-name }}
+        name: app
         path: ${{env.DOTNET_ROOT}}/${{ inputs.deploy-web-app-name }}
