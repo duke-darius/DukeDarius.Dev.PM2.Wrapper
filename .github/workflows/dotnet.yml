@@ -18,7 +18,7 @@ jobs:
       with:
         dotnet-version: 6.0.x
     - name: Install Report Generator
-      run: dotnet install -g dotnet-reportgenerator-globaltool
+      run: dotnet tool install -g dotnet-reportgenerator-globaltool
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
