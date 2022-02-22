@@ -18,4 +18,10 @@
     <ProjectReference Include="..\DukeDarius.Dev.PM2.Wrapper\DukeDarius.Dev.PM2.Wrapper.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="App1.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
