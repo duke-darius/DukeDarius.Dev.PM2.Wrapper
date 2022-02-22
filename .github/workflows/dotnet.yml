@@ -17,20 +17,16 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 6.0.x
-    - name: Install Report Generator
-      run: dotnet tool install -g dotnet-reportgenerator-globaltool
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
       run: dotnet build --no-restore
     - name: Test
-      run: dotnet test --no-build --verbosity normal
-    - name: ReportGenerator
-      run: reportgenerator 
+      run: dotnet test --no-build --verbosity normal --collect:"XPlat Code Coverage"
       
     - name: Codecov
       # You may pin to the exact commit or the version.
       # uses: codecov/codecov-action@f32b3a3741e1053eb607407145bc9619351dc93b
       uses: codecov/codecov-action@v2.1.0
       with:
-        files: ./coverage1.xml
+        files: ./TestResults/*/coverage.cobertura.xml
